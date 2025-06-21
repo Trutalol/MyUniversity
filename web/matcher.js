@@ -46,7 +46,7 @@ submitInformation.addEventListener('click', async () => {
             formattedSupabaseData += "No items found in the database.\n";
         }
 
-        const fullPrompt = `${formattedSupabaseData}\n\nUser query: "${userPrompt}"\n\nBased on the available items and the user's query, identify any items that match the user's intent or provide relevant information. Be concise and helpful.`;
+        const fullPrompt = `${formattedSupabaseData}\n\nUser query: "${userPrompt}"\n\nBased on the available items and my query, identify any items that match my intent or provide relevant information. Be concise and helpful. Only state Potential Match Found! new line, Name: (name), new line,and Relevant Interests: (list all tags)`;
 
         const requestBody = {
             contents: [
