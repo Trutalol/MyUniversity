@@ -18,7 +18,7 @@ submitInformation.addEventListener('click', async () => {
         const supabaseKey = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im9hb2hxb2x3cXdvbGZmaXBldWRlIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTAyOTM5NjEsImV4cCI6MjA2NTg2OTk2MX0.KqitRtYpveFERToZOt0l-Wn7qMTmcNaqRq70ypk-0l4"; // Your Supabase anon (public) key
 
         const tableName = "userData";
-        const supabaseFetchUrl = `${supabaseUrl}/rest/v1/${tableName}?select=id,name,tags`;
+        const supabaseFetchUrl = `${supabaseUrl}/rest/v1/${tableName}?select=id,name,tags,linkedin`;
 
         responseParagraph.textContent = "Fetching data from Supabase...";
         const supabaseResponse = await fetch(supabaseFetchUrl, {
@@ -40,13 +40,13 @@ submitInformation.addEventListener('click', async () => {
         let formattedSupabaseData = "Available items:\n";
         if (supabaseData.length > 0) {
             supabaseData.forEach(item => {
-                formattedSupabaseData += `- ID: ${item.id}, Name: "${item.name}", Tags: [${item.tags}]\n`;
+                formattedSupabaseData += `- ID: ${item.id}, Name: "${item.name}", Tags: [${item.tags}] LinkedIn: "${item.linkedin}"\n`;
             });
         } else {
             formattedSupabaseData += "No items found in the database.\n";
         }
 
-        const fullPrompt = `${formattedSupabaseData}\n\nUser query: "${userPrompt}"\n\nBased on the available items and my query, identify any items that match my intent or provide relevant information. Be concise and helpful. Only state Potential Match Found! new line, Name: (name), new line,and Relevant Interests: (list all tags)`;
+        const fullPrompt = `${formattedSupabaseData}\n\nUser query: "${userPrompt}"\n\nBased on the available items and my query, identify any items that match my intent or provide relevant information. Be concise and helpful. Only state Potential Match Found! new line, Name: (name), new line,and Relevant Interests: (list all tags), new line, LinkedIn: (hyperlink the linkedin)`;
 
         const requestBody = {
             contents: [
