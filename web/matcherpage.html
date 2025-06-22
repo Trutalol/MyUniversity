@@ -4,31 +4,29 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>MyUniversity | MyNetwork</title>
-    <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <!-- Font Awesome for icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
         .gradient-hover-darken {
-        position: relative;
-        overflow: hidden; /* Ensures pseudo-element doesn't go outside */
+            position: relative;
+            overflow: hidden; /* Ensures pseudo-element doesn't go outside */
         }
 
         .gradient-hover-darken::before {
-        content: '';
-        position: absolute;
-        top: 0;
-        left: 0;
-        right: 0;
-        bottom: 0;
-        background-color: rgba(0, 0, 0, 0.3); /* Adjust darkness here */
-        opacity: 0;
-        transition: opacity 0.2s ease-in-out;
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: rgba(0, 0, 0, 0.3); /* Adjust darkness here */
+            opacity: 0;
+            transition: opacity 0.2s ease-in-out;
         }
 
         .gradient-hover-darken:hover::before {
-        opacity: 1;
+            opacity: 1;
         }
         
         body {
@@ -51,23 +49,50 @@
         ::-webkit-scrollbar-thumb:hover {
             background: #6B7280; /* Hover color */
         }
+
+        /* Styles for the user boxes - mimicking your image */
+        .user-box {
+            background: linear-gradient(95.64deg, #2B2BD1 10.16%, #16166B 93.46%);
+            padding: 16px;
+            border-radius: 10px; /* Adjust as needed, image looks like rounded-lg */
+            margin-bottom: 16px; /* Spacing between boxes */
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            color: #E2E8F0; /* Light gray text color */
+            font-weight: 500; /* Medium font weight */
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+        }
+        .user-box:hover {
+             background: linear-gradient(95.64deg, #2020A0 10.16%, #101040 93.46%); /* Slightly darker gradient on hover */
+        }
+        .user-box .name {
+            font-weight: 600; /* Stronger for name */
+            font-size: 1.125rem; /* Equivalent to text-lg */
+        }
+        /* Adjusted for new display. You might want to fine-tune these if needed */
+        .user-box .details {
+            font-size: 0.9rem; /* Slightly smaller for details */
+            color: #A0AEC0; /* Lighter gray for details */
+        }
+        .user-box a {
+            color: #90CDF4; /* Light blue for links */
+            text-decoration: underline;
+        }
     </style>
 </head>
 <body class="flex min-h-screen">
 
-    <!-- Sidebar -->
     <aside class="w-64 bg-gray-900 text-white flex flex-col p-6 rounded-r-lg shadow-lg overflow-y-auto" style="min-height: 100vh;">
         <div class="flex items-center mb-10">
-            <img src="logo.png"></img>
+            <img src="logo.png" alt="MyUniversity Logo">
             <span class="text-xl font-bold">MyUniversity</span>
         </div>
 
         <nav class="space-y-4 flex-grow">
-            <!-- MyNETWORK link - now regular styling -->
             <a href="#" class="flex items-center p-3 rounded-lg text-white font-semibold shadow-md transition-colors duration-200 justify-center bg-[linear-gradient(95.64deg,_#2B2BD1_10.16%,_#16166B_93.46%)] gradient-hover-darken">
-                <span class="">MyNETWORK</span>
+                <span class="relative z-10">MyNETWORK</span>
             </a>
-            <!-- HOME link - now active styling -->
             <a href="menu.html" class="flex items-center p-3 rounded-lg text-gray-300 hover:bg-gray-800 transition-colors duration-200">
                 <i class="fas fa-home w-5 h-5"></i>
                 <span class="ml-3">HOME</span>
@@ -100,7 +125,6 @@
     </aside>
 
     <main class="flex-1 p-8 overflow-y-auto bg-black">
-        <!-- Top Navigation (Bell & Settings Icons) -->
         <div class="flex items-center justify-end mb-8">
             <div class="flex items-center space-x-4">
                 <button class="p-3 bg-white rounded-full shadow-md text-gray-600 hover:bg-gray-50 transition-colors duration-200">
@@ -112,30 +136,24 @@
             </div>
         </div>
 
-        <!-- Search Bar and Search Button -->
         <div class="flex flex-col items-center justify-center mt-16">
-            <div class="relative w-full max-w-xl mb-4"> <!-- Added mb-4 for spacing -->
-                <input type="text" id="searchInput" placeholder="Find your future connections" class="w-full pl-10 pr-4 py-3 rounded-[20px] bg-gray-800 text-gray-300 shadow-md border border-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500">
+            <div class="relative w-full max-w-xl mb-4">
+                <input type="text" id="searchInput" placeholder="Find your people." class="w-full pl-10 pr-4 py-3 rounded-[20px] bg-gray-800 text-gray-300 shadow-md border border-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500">
                 <i class="fas fa-search absolute left-3 top-1/2 -translate-y-1/2 text-gray-400"></i>
             </div>
-            <!-- New Search Button -->
             <button id="submit" class="w-full max-w-xl bg-blue-600 text-white p-3 rounded-[20px] hover:bg-blue-700 transition duration-200 ease-in-out cursor-pointer shadow-md">
                 Search
             </button>
         </div>
 
         <div class="mt-8 w-full max-w-xl mx-auto">
-            <h3 class="text-white text-lg font-semibold mb-3">Network Matcher Response:</h3>
-            <div id="geminiResponseParagraph" class="bg-gray-800 text-gray-300 p-4 rounded-lg min-h-[100px] shadow-md whitespace-pre-wrap">
-                Your matched user will appear here after searching.
-            </div>
-            <pre id="geminiRawResponse" class="bg-gray-900 text-gray-500 p-4 rounded-lg overflow-x-auto text-sm mt-4 hidden"></pre>
+            <div id="loadingIndicator" class="text-gray-400 text-center hidden">Searching...</div>
+            <div id="resultsContainer" class="mt-4 space-y-4">
+                </div>
         </div>
 
-        <!-- Placeholder for content specific to MyNETWORK page -->
         <div class="mt-8 text-center text-gray-500">
-            <!-- Content for MyNETWORK will go here -->
-        </div>
+            </div>
     </main>
 
     <script src="matcher.js"></script>
