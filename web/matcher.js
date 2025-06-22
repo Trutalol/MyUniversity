@@ -8,7 +8,7 @@ const loadingIndicator = document.getElementById("loadingIndicator");
 // *** IMPORTANT CHANGE HERE ***
 // Use the FULL URL of your deployed backend API
 // Replace with YOUR actual backend URL
-const backendApiBaseUrl = 'https://myu-backend.vercel.app/'; // Or https://my-api-functions.vercel.app if deployed as serverless functions on Vercel
+const backendApiBaseUrl = 'https://myu-backend.vercel.app/api/connections'; // Or https://my-api-functions.vercel.app if deployed as serverless functions on Vercel
 const apiEndpoint = `${backendApiBaseUrl}/connections`; // Assuming your backend has a /connections endpoint
 
 async function getConnections() {
