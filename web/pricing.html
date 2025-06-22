@@ -11,24 +11,24 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
         .gradient-hover-darken {
-        position: relative;
-        overflow: hidden; /* Ensures pseudo-element doesn't go outside */
+            position: relative;
+            overflow: hidden; /* Ensures pseudo-element doesn't go outside */
         }
 
         .gradient-hover-darken::before {
-        content: '';
-        position: absolute;
-        top: 0;
-        left: 0;
-        right: 0;
-        bottom: 0;
-        background-color: rgba(0, 0, 0, 0.3); /* Adjust darkness here */
-        opacity: 0;
-        transition: opacity 0.2s ease-in-out;
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: rgba(0, 0, 0, 0.3); /* Adjust darkness here */
+            opacity: 0;
+            transition: opacity 0.2s ease-in-out;
         }
 
         .gradient-hover-darken:hover::before {
-        opacity: 1;
+            opacity: 1;
         }
 
         body {
@@ -109,6 +109,64 @@
             </div>
         </div>
 
+        <!-- Pricing Section -->
+        <section class="py-12">
+            <div class="container mx-auto px-4">
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+
+                    <!-- Growth Plan Card -->
+                    <div class="bg-gray-900 rounded-xl shadow-lg p-8 flex flex-col justify-between border border-gray-700">
+                        <div>
+                            <h3 class="text-gray-300 text-xl font-semibold mb-2">MyU Basic</h3>
+                            <p class="text-white text-5xl font-bold mb-2">$0<span class="text-gray-400 text-lg font-normal">/month</span></p>
+                            <p class="text-gray-400 text-sm mb-6">For growing and midsize companies</p>
+                            <hr class="border-gray-700 my-6">
+                            <p class="text-gray-300 font-semibold mb-4">Core features:</p>
+                            <ul class="space-y-3 text-gray-400">
+                                <li class="flex items-center"><i class="fas fa-check text-blue-500 mr-3"></i> 5 connections per day</li>
+                            </ul>
+                        </div>
+                        <button class="mt-8 w-full py-3 bg-blue-600 text-white font-semibold rounded-lg hover:bg-blue-700 transition duration-200">Get started</button>
+                    </div>
+
+                    <!-- Scale Plan Card -->
+                    <div class="bg-gray-900 rounded-xl shadow-lg p-8 flex flex-col justify-between border border-gray-700">
+                        <div>
+                            <h3 class="text-gray-300 text-xl font-semibold mb-2">MyU+</h3>
+                            <p class="text-white text-5xl font-bold mb-2">$3.99<span class="text-gray-400 text-lg font-normal">/month</span></p>
+                            <p class="text-gray-400 text-sm mb-6">For rapidly growing and complex midsize companies</p>
+                            <hr class="border-gray-700 my-6">
+                            <p class="text-gray-300 font-semibold mb-4">Everything in MyU Basic, plus:</p>
+                            <ul class="space-y-3 text-gray-400">
+                                <li class="flex items-center"><i class="fas fa-check text-blue-500 mr-3"></i> 20 connections per day</li>
+                                <li class="flex items-center"><i class="fas fa-check text-blue-500 mr-3"></i> No advertisements</li>
+                                <li class="flex items-center"><i class="fas fa-check text-blue-500 mr-3"></i> No MyMessage sponsor messages</li>
+                                <li class="flex items-center"><i class="fas fa-check text-blue-500 mr-3"></i> Small selection of MyMessage games</li>
+                            </ul>
+                        </div>
+                        <button class="mt-8 w-full py-3 bg-blue-600 text-white font-semibold rounded-lg hover:bg-blue-700 transition duration-200">Get started</button>
+                    </div>
+
+                    <!-- Enterprise Plan Card -->
+                    <div class="bg-gray-900 rounded-xl shadow-lg p-8 flex flex-col justify-between border border-gray-700">
+                        <div>
+                            <h3 class="text-gray-300 text-xl font-semibold mb-2">MyU++</h3>
+                            <p class="text-white text-5xl font-bold mb-2">$9.99<span class="text-gray-400 text-lg font-normal">/month</span></p>
+                            <p class="text-gray-400 text-sm mb-6">For enterprise businesses and accounting firms</p>
+                            <hr class="border-gray-700 my-6">
+                            <p class="text-gray-300 font-semibold mb-4">Everything in MyU+, plus:</p>
+                            <ul class="space-y-3 text-gray-400">
+                                <li class="flex items-center"><i class="fas fa-check text-blue-500 mr-3"></i> Unlimited connections per day</li>
+                                <li class="flex items-center"><i class="fas fa-check text-blue-500 mr-3"></i> Connection priority</li>
+                                <li class="flex items-center"><i class="fas fa-check text-blue-500 mr-3"></i> Offer Priority</li>
+                            </ul>
+                        </div>
+                        <button class="mt-8 w-full py-3 bg-blue-600 text-white font-semibold rounded-lg hover:bg-blue-700 transition duration-200">Get started</button>
+                    </div>
+
+                </div>
+            </div>
+        </section>
     </main>
 
 </body>
