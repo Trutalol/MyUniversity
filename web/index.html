@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MyUniversity | Home</title>
+    <link rel="shortcut icon" type="image/x-icon" href="favicon.ico" />
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Font Awesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        .gradient-hover-darken {
+        position: relative;
+        overflow: hidden; /* Ensures pseudo-element doesn't go outside */
+        }
+
+        .gradient-hover-darken::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background-color: rgba(0, 0, 0, 0.3); /* Adjust darkness here */
+        opacity: 0;
+        transition: opacity 0.2s ease-in-out;
+        }
+
+        .gradient-hover-darken:hover::before {
+        opacity: 1;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #0F0F11
+        }
+        /* Custom scrollbar for better aesthetics */
+        ::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #2D3748; /* Darker track for sidebar */
+            border-radius: 10px;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #4A5568; /* Thumb color */
+            border-radius: 10px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #6B7280; /* Hover color */
+        }
+    </style>
+</head>
+<body class="flex min-h-screen">
+
+    <!-- Sidebar -->
+    <aside class="w-64 bg-gray-900 text-white flex flex-col p-6 rounded-r-lg shadow-lg overflow-y-auto" style="min-height: 100vh;">
+        <div class="flex items-center mb-10">
+            <img src="logo.png"></img>
+            <span class="text-xl font-bold">MyUniversity</span>
+        </div>
+
+        <nav class="space-y-4 flex-grow">
+            <!-- MyNETWORK link - now regular styling -->
+            <a href="matcherpage.html" class="flex items-center p-3 rounded-lg text-white font-semibold shadow-md transition-colors duration-200 justify-center bg-[linear-gradient(95.64deg,_#2B2BD1_10.16%,_#16166B_93.46%)] gradient-hover-darken">
+                <span class="">MyNETWORK</span>
+            </a>
+            <!-- HOME link - now active styling -->
+            <a href="#" class="flex items-center p-3 rounded-lg text-blue-400 font-semibold bg-blue-900 shadow-md">
+                <i class="fas fa-home w-5 h-5"></i>
+                <span class="ml-3">HOME</span>
+            </a>
+            <a href="professors.html" class="flex items-center p-3 rounded-lg text-gray-300 hover:bg-gray-800 transition-colors duration-200">
+                <i class="fas fa-user-graduate w-5 h-5"></i>
+                <span class="ml-3">PROFESSORS</span>
+            </a>
+            <a href="events.html" class="flex items-center p-3 rounded-lg text-gray-300 hover:bg-gray-800 transition-colors duration-200">
+                <i class="fas fa-calendar-alt w-5 h-5"></i>
+                <span class="ml-3">EVENTS</span>
+            </a>
+            <a href="clubs.html" class="flex items-center p-3 rounded-lg text-gray-300 hover:bg-gray-800 transition-colors duration-200">
+                <i class="fas fa-users w-5 h-5"></i>
+                <span class="ml-3">CLUBS</span>
+            </a>
+            <a href="residence.html" class="flex items-center p-3 rounded-lg text-gray-300 hover:bg-gray-800 transition-colors duration-200">
+                <i class="fas fa-building w-5 h-5"></i>
+                <span class="ml-3">RESIDENCE</span>
+            </a>
+            <a href="courses.html" class="flex items-center p-3 rounded-lg text-gray-300 hover:bg-gray-800 transition-colors duration-200">
+                <i class="fas fa-book w-5 h-5"></i>
+                <span class="ml-3">COURSES</span>
+            </a>
+            <a href="pricing.html" class="flex items-center p-3 rounded-lg text-white font-semibold shadow-md transition-colors duration-200 bg-[linear-gradient(180deg,_#BA8800_0%,_#F3CC40_100%)] gradient-hover-darken">
+                <i class="fas fa-dollar-sign w-5 h-5"></i>
+                <span class="ml-3">PRICING</span>
+            </a>
+        </nav>
+    </aside>
+
+    <!-- Main Content Area -->
+    <main class="flex-1 p-8 overflow-y-auto">
+        <!-- Search Bar -->
+        <div class="flex items-center justify-between mb-8">
+            <div class="relative flex-grow mr-4">
+                <input type="text" placeholder="Search all" class="w-full pl-10 pr-4 py-3 rounded-[20px] bg-gray-800 text-gray-300 shadow-md border border-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500">
+                <i class="fas fa-search absolute left-3 top-1/2 -translate-y-1/2 text-gray-400"></i>
+            </div>
+            <div class="flex items-center space-x-4">
+                <button class="p-6 bg-gray-800 rounded-full shadow-md text-gray-300 hover:bg-[#16161D] transition-colors duration-200 w-10 h-10 flex items-center justify-center">
+                    <i class="fas fa-bell text-lg"></i> </button>
+                <button class="p-6 bg-gray-800 rounded-full shadow-md text-gray-300 hover:bg-[#16161D] transition-colors duration-200 w-10 h-10 flex items-center justify-center">
+                    <i class="fas fa-cog text-lg"></i> </button>
+            </div>
+            </div>
+        </div>
+
+        <!-- MyNETWORK Section -->
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-8">
+            <div class="bg-blue-600 p-6 rounded-xl shadow-lg">
+                <h2 class="text-white mb-4">MyNETWORK</h2>
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    <!-- Messages Sub-section -->
+                    <div>
+                        <h3 class="text-blue-200 text-lg font-semibold mb-3">Messages</h3>
+                        <div class="space-y-3">
+                            <div class="bg-blue-700 p-4 rounded-lg flex items-center justify-between text-white shadow-sm">
+                                <div>
+                                    <p class="font-medium">Name</p>
+                                    <p class="text-sm text-blue-300">Message Preview</p>
+                                </div>
+                                <span class="text-sm text-blue-300">30 m</span>
+                            </div>
+                            <div class="bg-blue-700 p-4 rounded-lg flex items-center justify-between text-white shadow-sm">
+                                <div>
+                                    <p class="font-medium">Name</p>
+                                    <p class="text-sm text-blue-300">Message Preview</p>
+                                </div>
+                                <span class="text-sm text-blue-300">30 m</span>
+                            </div>
+                            <div class="bg-blue-700 p-4 rounded-lg flex items-center justify-between text-white shadow-sm">
+                                <div>
+                                    <p class="font-medium">Name</p>
+                                    <p class="text-sm text-blue-300">Message Preview</p>
+                                </div>
+                                <span class="text-sm text-blue-300">30 m</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Add Friends Sub-section -->
+                    <div>
+                        <h3 class="text-blue-200 text-lg font-semibold mb-3">Add Friends</h3>
+                        <div class="space-y-3">
+                            <div class="bg-blue-700 p-4 rounded-lg flex items-center justify-between text-white shadow-sm">
+                                <div>
+                                    <p class="font-medium">Name</p>
+                                    <p class="text-sm text-blue-300">User Preview</p>
+                                </div>
+                                <button class="bg-blue-500 text-white w-8 h-8 rounded-full flex items-center justify-center hover:bg-blue-400 transition-colors duration-200">
+                                    <i class="fas fa-plus"></i>
+                                </button>
+                            </div>
+                            <div class="bg-blue-700 p-4 rounded-lg flex items-center justify-between text-white shadow-sm">
+                                <div>
+                                    <p class="font-medium">Name</p>
+                                    <p class="text-sm text-blue-300">User Preview</p>
+                                </div>
+                                <button class="bg-blue-500 text-white w-8 h-8 rounded-full flex items-center justify-center hover:bg-blue-400 transition-colors duration-200">
+                                    <i class="fas fa-plus"></i>
+                                </button>
+                            </div>
+                            <div class="bg-blue-700 p-4 rounded-lg flex items-center justify-between text-white shadow-sm">
+                                <div>
+                                    <p class="font-medium">Name</p>
+                                    <p class="text-sm text-blue-300">User Preview</p>
+                                </div>
+                                <button class="bg-blue-500 text-white w-8 h-8 rounded-full flex items-center justify-center hover:bg-blue-400 transition-colors duration-200">
+                                    <i class="fas fa-plus"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Upcoming and News Sections -->
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+            <!-- Upcoming Section -->
+            <div class="bg-red-600 p-6 rounded-xl shadow-lg">
+                <h2 class="text-white mb-4">UPCOMING</h2>
+                <p class="text-red-200 text-sm mb-4">Sunday, June 22, 2025</p>
+                <div class="space-y-3">
+                    <div class="bg-red-700 p-4 rounded-lg flex items-center justify-between text-white shadow-sm">
+                        <p class="font-medium">Event</p>
+                        <span class="text-sm text-red-300">time</span>
+                    </div>
+                    <div class="bg-red-700 p-4 rounded-lg flex items-center justify-between text-white shadow-sm">
+                        <p class="font-medium">Event</p>
+                        <span class="text-sm text-red-300">time</span>
+                    </div>
+                    <div class="bg-red-700 p-4 rounded-lg flex items-center justify-between text-white shadow-sm">
+                        <p class="font-medium">Event</p>
+                        <span class="text-sm text-red-300">time</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- News Section -->
+            <div class="bg-yellow-600 p-6 rounded-xl shadow-lg">
+                <h2 class="text-white mb-4">NEWS</h2>
+                <div class="space-y-3">
+                    <div class="bg-yellow-700 p-4 rounded-lg text-white shadow-sm">
+                        <p class="font-medium">Article</p>
+                        <p class="text-sm text-yellow-300">Shared Interests</p>
+                    </div>
+                    <div class="bg-yellow-700 p-4 rounded-lg text-white shadow-sm">
+                        <p class="font-medium">Article</p>
+                        <p class="text-sm text-yellow-300">Shared Interests</p>
+                    </div>
+                    <div class="bg-yellow-700 p-4 rounded-lg text-white shadow-sm">
+                        <p class="font-medium">Article</p>
+                        <p class="text-sm text-yellow-300">Shared Interests</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+</body>
+</html>
