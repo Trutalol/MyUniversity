@@ -5,11 +5,11 @@ const userInput = document.getElementById("searchInput");
 const resultsContainer = document.getElementById("resultsContainer");
 const loadingIndicator = document.getElementById("loadingIndicator");
 
-// *** IMPORTANT CHANGE HERE ***
-// Use the FULL URL of your deployed backend API
-// Replace with YOUR actual backend URL
-const backendApiBaseUrl = 'https://myu-backend.vercel.app/api'; // Or https://my-api-functions.vercel.app if deployed as serverless functions on Vercel
-const apiEndpoint = `${backendApiBaseUrl}/connections`; // Assuming your backend has a /connections endpoint
+// --- IMPORTANT: Use the FULL URL of your deployed backend API ---
+// Replace 'https://myu-backend.vercel.app' with the actual base URL of your deployed backend Vercel project.
+// The '/api/connections' part is automatically mapped by Vercel from your api/connections.ts file.
+const backendApiBaseUrl = 'https://myu-backend.vercel.app';
+const apiEndpoint = `${backendApiBaseUrl}/api/connections`; 
 
 async function getConnections() {
     const userPrompt = userInput.value.trim();
@@ -18,11 +18,12 @@ async function getConnections() {
         return;
     }
 
-    resultsContainer.innerHTML = '';
-    loadingIndicator.classList.remove('hidden');
+    resultsContainer.innerHTML = ''; // Clear previous results
+    loadingIndicator.classList.remove('hidden'); // Show loading indicator
 
     try {
-        const response = await fetch(apiEndpoint, { // Now calling the external backend URL
+        // --- This is where your frontend calls your Vercel backend API ---
+        const response = await fetch(apiEndpoint, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
@@ -30,16 +31,21 @@ async function getConnections() {
             body: JSON.stringify({ userPrompt: userPrompt })
         });
 
+        // Check if the response from your backend API was successful
         if (!response.ok) {
             const errorData = await response.json();
-            throw new Error(`API request failed: ${errorData.error || 'Unknown error'}`);
+            // Log the full error to the console for debugging
+            console.error("Backend API request failed:", errorData); 
+            throw new Error(`API request failed: ${errorData.error || 'Unknown error'}. Check backend logs.`);
         }
 
+        // Parse the JSON response from your backend API (which contains Gemini's result)
         const geminiResult = await response.json();
         console.log("Gemini AI Response received from Backend API:", geminiResult);
 
-        loadingIndicator.classList.add('hidden');
+        loadingIndicator.classList.add('hidden'); // Hide loading indicator
 
+        // Process the Gemini AI response received from your backend
         if (geminiResult.candidates && geminiResult.candidates.length > 0 && geminiResult.candidates[0].content && geminiResult.candidates[0].content.parts && geminiResult.candidates[0].content.parts.length > 0) {
             const geminiText = geminiResult.candidates[0].content.parts[0].text;
             
@@ -48,6 +54,8 @@ async function getConnections() {
                 return;
             }
 
+            // This part is crucial for parsing the output from your Gemini prompt
+            // It expects lines starting with "Name: ..."
             const userStrings = geminiText.split('\n').filter(line => line.startsWith('Name:'));
             
             if (userStrings.length === 0) {
@@ -59,7 +67,7 @@ async function getConnections() {
                 const parts = userStr.split('|').map(part => part.trim());
                 let name = '';
                 let university = '';
-                let interests = [];
+                let interests = []; // This will hold the parsed tags
                 let linkedin = '';
 
                 parts.forEach(part => {
@@ -68,6 +76,7 @@ async function getConnections() {
                     } else if (part.startsWith('University:')) {
                         university = part.substring('University:'.length).trim();
                     } else if (part.startsWith('Interests:')) {
+                        // This line extracts and cleans the comma-separated interests (tags)
                         interests = part.substring('Interests:'.length).split(',').map(tag => tag.trim()).filter(tag => tag);
                     } else if (part.startsWith('LinkedIn:')) {
                         linkedin = part.substring('LinkedIn:'.length).trim();
@@ -95,7 +104,7 @@ async function getConnections() {
         }
     } catch (error) {
         console.error("Operation failed: ", error);
-        loadingIndicator.classList.add('hidden');
+        loadingIndicator.classList.add('hidden'); // Hide loading indicator on error
         resultsContainer.innerHTML = `<p class="text-red-400 text-center">An error occurred: ${error.message}. Check the console for more details.</p>`;
     }
 }
@@ -104,7 +113,7 @@ submitInformation.addEventListener('click', getConnections);
 
 userInput.addEventListener('keydown', (event) => {
     if (event.key === 'Enter') {
-        event.preventDefault();
+        event.preventDefault(); // Prevent default form submission if input is in a form
         getConnections();
     }
 });
