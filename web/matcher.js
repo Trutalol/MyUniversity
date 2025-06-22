@@ -2,9 +2,8 @@ const submitInformation = document.getElementById("submit");
 const responseParagraph = document.getElementById("geminiResponseParagraph");
 const userInput = document.getElementById("searchInput");
 
-submitInformation.addEventListener('click', async () => {
+async function getConnections() {
     const userPrompt = userInput.value.trim();
-
     if (!userPrompt) {
         responseParagraph.textContent = "Please enter some text before submitting.";
         return;
@@ -76,5 +75,14 @@ submitInformation.addEventListener('click', async () => {
     } catch (error) {
         console.error("Operation failed: ", error);
         responseParagraph.textContent = `An error occurred: ${error.message}. Check the console for more details.`;
+    }
+}
+submitInformation.addEventListener('click', async () => {
+    getConnections();
+});
+
+userInput.addEventListener('keydown', (event) => {
+    if (event.key === 'Enter') {
+        getConnections();
     }
 });
