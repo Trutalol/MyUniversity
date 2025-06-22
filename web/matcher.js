@@ -1,13 +1,7 @@
-// frontend-repo/public/script.js
-
 const submitInformation = document.getElementById("submit");
 const userInput = document.getElementById("searchInput");
 const resultsContainer = document.getElementById("resultsContainer");
 const loadingIndicator = document.getElementById("loadingIndicator");
-
-// --- IMPORTANT: Use the FULL URL of your deployed backend API ---
-// Replace 'https://myu-backend.vercel.app' with the actual base URL of your deployed backend Vercel project.
-// The '/api/connections' part is automatically mapped by Vercel from your api/connections.ts file.
 const backendApiBaseUrl = 'https://myu-backend.vercel.app';
 const apiEndpoint = `${backendApiBaseUrl}/api/connections`; 
 
@@ -22,7 +16,6 @@ async function getConnections() {
     loadingIndicator.classList.remove('hidden'); // Show loading indicator
 
     try {
-        // --- This is where your frontend calls your Vercel backend API ---
         const response = await fetch(apiEndpoint, {
             method: 'POST',
             headers: {
@@ -39,7 +32,6 @@ async function getConnections() {
             throw new Error(`API request failed: ${errorData.error || 'Unknown error'}. Check backend logs.`);
         }
 
-        // Parse the JSON response from your backend API (which contains Gemini's result)
         const geminiResult = await response.json();
         console.log("Gemini AI Response received from Backend API:", geminiResult);
 
