@@ -1,0 +1,17 @@
+{
+  "name": "my-static-site-with-api",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "start": "vercel dev"
+  },
+  "dependencies": {
+    "@vercel/node": "^3.0.0",
+    "node-fetch": "^2.6.7" // Make sure this is present if you imported it in connections.ts
+  },
+  "devDependencies": {
+    "typescript": "^5.0.0", // Only if you're using TypeScript
+    "@types/node": "^20.0.0", // Only if you're using TypeScript
+    "@types/node-fetch": "^2.6.11" // Only if you're using TypeScript and node-fetch
+  }
+}
