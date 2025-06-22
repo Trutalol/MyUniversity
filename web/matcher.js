@@ -14,68 +14,34 @@ async function getConnections() {
     loadingIndicator.classList.remove('hidden'); // Show loading indicator
 
     try {
-        const googleApiKey = "AIzaSyDQQ-ohHyG1192SEAu4xtZTpqQ3d9qDORE"; // Replace with your actual API key
-        const geminiApiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${googleApiKey}`;
+        // *** IMPORTANT CHANGE HERE ***
+        // Instead of hardcoding API keys and directly calling Gemini/Supabase,
+        // we now call YOUR Vercel API Route.
+        const apiEndpoint = '/api/connections'; // This path depends on where you place your api/connections.ts file in your Vercel project
 
-        const supabaseUrl = "https://oaohqolwqwolffipeude.supabase.co"; // Your Supabase URL
-        const supabaseKey = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im9hb2hxb2x3cXdvbGZmaXBldWRlIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTAyOTM5NjEsImV4cCI6MjA2NTg2OTk2MX0.KqitRtYpveFERToZOt0l-Wn7qMTmcNaqRq70ypk-0l4"; // Your Supabase anon (public) key
-
-        const tableName = "userData";
-        // ONLY select the fields you want to use/display
-        const supabaseFetchUrl = `${supabaseUrl}/rest/v1/${tableName}?select=id,name,university,tags,linkedin`;
-
-        // Fetch data from Supabase
-        const supabaseResponse = await fetch(supabaseFetchUrl, {
-            method: 'GET',
-            headers: {
-                'apikey': supabaseKey,
-                'Content-Type': 'application/json'
-            }
-        });
-
-        if (!supabaseResponse.ok) {
-            const errorData = await supabaseResponse.json();
-            throw new Error(`Supabase fetch failed: ${errorData.message || 'Unknown error'}`);
-        }
-
-        const supabaseData = await supabaseResponse.json();
-        console.log("Data from Supabase:", supabaseData);
-
-        let formattedSupabaseData = "Available users data:\n";
-        if (supabaseData.length > 0) {
-            supabaseData.forEach(item => {
-                formattedSupabaseData += `- ID: ${item.id}, Name: "${item.name}", University: "${item.university}", Tags: [${item.tags}], LinkedIn: "${item.linkedin}"\n`;
-            });
-        } else {
-            formattedSupabaseData += "No users found in the database.\n";
-        }
-
-        // Construct the prompt for Gemini, focusing on Name, University, Tags, LinkedIn
-        const fullPrompt = `${formattedSupabaseData}\n\nUser query: "${userPrompt}"\n\nBased on the available users and my query, identify any users that match my intent or provide relevant information. For each matched user, output their details in this exact format: "Name: [Name]|University: [University Name]|Interests: [Comma separated tags]|LinkedIn: [LinkedIn URL]". If no match is found, just say "No matches found."`;
-
-
-        const requestBody = {
-            contents: [
-                {
-                    parts: [
-                        { text: fullPrompt }
-                    ]
-                }
-            ]
-        };
-
-        // Send data to Gemini AI
-        const geminiResponse = await fetch(geminiApiUrl, {
+        // Send the user's prompt to your Vercel API Route
+        const response = await fetch(apiEndpoint, {
             method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(requestBody)
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ userPrompt: userPrompt }) // Send the user input to the backend
         });
 
-        const geminiResult = await geminiResponse.json();
-        console.log("Gemini AI Response:", geminiResult);
+        // Check if the response from YOUR Vercel API Route was successful
+        if (!response.ok) {
+            const errorData = await response.json();
+            // The error message now comes from your Vercel function
+            throw new Error(`API request failed: ${errorData.error || 'Unknown error'}`);
+        }
+
+        // The response from your Vercel API Route will be the Gemini result
+        const geminiResult = await response.json();
+        console.log("Gemini AI Response received from Vercel API:", geminiResult);
 
         loadingIndicator.classList.add('hidden'); // Hide loading indicator
 
+        // The parsing and display logic for the Gemini response remains the same
         if (geminiResult.candidates && geminiResult.candidates.length > 0 && geminiResult.candidates[0].content && geminiResult.candidates[0].content.parts && geminiResult.candidates[0].content.parts.length > 0) {
             const geminiText = geminiResult.candidates[0].content.parts[0].text;
             
@@ -84,12 +50,11 @@ async function getConnections() {
                 return;
             }
 
-            // Attempt to parse the Gemini response into individual user objects
             const userStrings = geminiText.split('\n').filter(line => line.startsWith('Name:'));
             
             if (userStrings.length === 0) {
-                 resultsContainer.innerHTML = `<p class="text-gray-400 text-center">Could not parse a valid user from the AI response. Try a different query or refine the prompt.</p>`;
-                 return;
+                resultsContainer.innerHTML = `<p class="text-gray-400 text-center">Could not parse a valid user from the AI response. Try a different query or refine the prompt.</p>`;
+                return;
             }
 
             userStrings.forEach(userStr => {
@@ -111,11 +76,9 @@ async function getConnections() {
                     }
                 });
 
-                // Create the user box element
                 const userBox = document.createElement('div');
                 userBox.classList.add('user-box'); // Apply custom CSS class
                 
-                // Construct the HTML for the box, displaying Name, University, Interests, and LinkedIn
                 userBox.innerHTML = `
                     <div class="flex flex-col">
                         <span class="name">${name || 'Unknown Name'}</span>
