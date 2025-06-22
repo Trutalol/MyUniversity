@@ -10,6 +10,27 @@
     <!-- Font Awesome for icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
+        .gradient-hover-darken {
+        position: relative;
+        overflow: hidden; /* Ensures pseudo-element doesn't go outside */
+        }
+
+        .gradient-hover-darken::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background-color: rgba(0, 0, 0, 0.3); /* Adjust darkness here */
+        opacity: 0;
+        transition: opacity 0.2s ease-in-out;
+        }
+
+        .gradient-hover-darken:hover::before {
+        opacity: 1;
+        }
+
         body {
             font-family: 'Inter', sans-serif;
             background-color: #0F0F11
@@ -43,7 +64,7 @@
 
         <nav class="space-y-4 flex-grow">
             <!-- MyNETWORK link - now regular styling -->
-            <a href="matcherpage.html" class="flex items-center p-3 rounded-lg text-white font-semibold bg-purple-700 shadow-md transition-colors duration-200 justify-center hover:bg-purple-800">
+            <a href="matcherpage.html" class="flex items-center p-3 rounded-lg text-white font-semibold shadow-md transition-colors duration-200 justify-center bg-[linear-gradient(95.64deg,_#2B2BD1_10.16%,_#16166B_93.46%)] gradient-hover-darken">
                 <span class="">MyNETWORK</span>
             </a>
             <!-- HOME link - now active styling -->
